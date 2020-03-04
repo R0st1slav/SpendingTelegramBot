@@ -3,29 +3,22 @@ from typing import Dict, List, Tuple
 
 import sqlite3
 
-
 conn = sqlite3.connect(os.path.join("db", "finance.db"))
 cursor = conn.cursor()
 
 
 # java style prog
-#проверка наличия в бд
+# проверка наличия в бд
 
 def checkChatId(chatId):
     cursor.execute("SELECT count(*) FROM users WHERE chatid = ?", (chatId))
     data = cursor.fetchone()[0]
     if data == 0:
-        print('There is no chatId in users %s' % chatId)
+        print('There is no chatId in users {}'.format(chatId))
         cursor.execute(f"INSERT INTO users VALUES ('" + chatId + "')")
         conn.commit()
     else:
         print('found one chatId! ')
-
-
-
-
-
-
 
 
 # какаято сложнота залупская
@@ -33,9 +26,9 @@ def checkChatId(chatId):
 
 
 def insert(table: str, column_values: Dict):
-    columns = ', '.join( column_values.keys() )
+    columns = ', '.join(column_values.keys())
     values = [tuple(column_values.values())]
-    placeholders = ", ".join( "?" * len(column_values.keys()) )
+    placeholders = ", ".join("?" * len(column_values.keys()))
     cursor.executemany(
         f"INSERT INTO {table} "
         f"({columns}) "
@@ -65,5 +58,3 @@ def delete(table: str, row_id: int) -> None:
 
 def get_cursor():
     return cursor
-
-
