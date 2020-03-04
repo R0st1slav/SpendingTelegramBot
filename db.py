@@ -8,6 +8,26 @@ conn = sqlite3.connect(os.path.join("db", "finance.db"))
 cursor = conn.cursor()
 
 
+# java style prog
+#проверка наличия в бд
+
+def checkChatId(chatId):
+    cursor.execute("SELECT count(*) FROM users WHERE chatid = ?", (chatId))
+    data = cursor.fetchone()[0]
+    if data == 0:
+        print('There is no chatId in users %s' % chatId)
+        cursor.execute(f"INSERT INTO users VALUES ('" + chatId + "')")
+        conn.commit()
+    else:
+        print('found one chatId! ')
+
+
+
+
+
+
+
+
 # какаято сложнота залупская
 # надо легче
 
