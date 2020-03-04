@@ -45,9 +45,9 @@ async def send_expenses(message: Message):
 """Вывод списка доходов"""
 
 
-@dp.message_handler(commands=['revenues'])
+@dp.message_handler(commands=['incomes'])
 async def send_revenues(message: Message):
-    pass
+    await message.answer('Выберите период за который показать доходы: ', reply_markup=period_markup)
 
 
 """Вывод списка накоплений"""
@@ -55,7 +55,7 @@ async def send_revenues(message: Message):
 
 @dp.message_handler(commands=['savings'])
 async def send_savings(message: Message):
-    pass
+    await message.answer('Выберите период за который показать накопления: ', reply_markup=period_markup)
 
 
 """Вывод статистики распределения бюджета"""
@@ -66,9 +66,14 @@ async def send_revenues(message: Message):
     pass
 
 
-@dp.message_handler(lambda message: 'day' == message.text)
+@dp.message_handler(lambda message: 'day' == message.text or 'month' == message.text or 'year' == message.text)
 async def send_message(message: Message):
-    await message.answer('test')
+    if message.text is 'day':
+        pass
+    elif message.text is 'month':
+        pass
+    elif message.text is 'year':
+        pass
 
 
 if __name__ == '__main__':
