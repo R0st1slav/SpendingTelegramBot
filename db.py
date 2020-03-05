@@ -10,7 +10,8 @@ cursor = conn.cursor()
 # java style prog
 # проверка наличия в бд
 
-def checkChatId(chatId):
+
+def check_chat_id(chatId):
     cursor.execute("SELECT count(*) FROM users WHERE chatid = ?", (chatId))
     data = cursor.fetchone()[0]
     if data == 0:
