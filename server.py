@@ -3,18 +3,14 @@ from aiogram.bot import api
 from config import TOKEN_API
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, Message
 import logging
-
+from keyboard import ListOfButtons
 
 dp = Dispatcher(bot=Bot(token=TOKEN_API))
 logging.basicConfig(level=logging.INFO)
 
-
-buttons = [[KeyboardButton(text='day'),
-           KeyboardButton(text='month'),
-           KeyboardButton(text='year')]]
-
-period_markup = ReplyKeyboardMarkup(buttons, resize_keyboard=True, one_time_keyboard=True)
-
+keyboard = ListOfButtons(text=["день", "месяц", "год"],
+                         callback=['1', '2', '3'],
+                         align=[3]).inline_keyboard
 
 """Начало общения с ботом"""
 
@@ -39,7 +35,7 @@ async def send_categories(message: Message):
 
 @dp.message_handler(commands=['expenses'])
 async def send_expenses(message: Message):
-    await message.answer('Выберите период за который показать расходы: ', reply_markup=period_markup)
+    await message.answer('Выберите период за который показать расходы: ', reply_markup=keyboard)
 
 
 """Вывод списка доходов"""
@@ -47,7 +43,7 @@ async def send_expenses(message: Message):
 
 @dp.message_handler(commands=['incomes'])
 async def send_revenues(message: Message):
-    await message.answer('Выберите период за который показать доходы: ', reply_markup=period_markup)
+    await message.answer('Выберите период за который показать доходы: ', reply_markup=keyboard)
 
 
 """Вывод списка накоплений"""
@@ -55,7 +51,7 @@ async def send_revenues(message: Message):
 
 @dp.message_handler(commands=['savings'])
 async def send_savings(message: Message):
-    await message.answer('Выберите период за который показать накопления: ', reply_markup=period_markup)
+    await message.answer('Выберите период за который показать накопления: ', reply_markup=keyboard)
 
 
 """Вывод статистики распределения бюджета"""
@@ -67,7 +63,7 @@ async def send_revenues(message: Message):
 
 
 @dp.message_handler(lambda message: 'day' == message.text or 'month' == message.text or 'year' == message.text)
-async def send_message(message: Message):
+async def filter_period(message: Message):
     if message.text is 'day':
         pass
     elif message.text is 'month':
