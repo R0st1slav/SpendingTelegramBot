@@ -7,8 +7,14 @@ from keyboard import ListOfButtons
 from filters import Button
 
 
-dp = Dispatcher(bot=Bot(token=TOKEN_API))
 logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+
+PATCHED_URL = "https://telegg.ru/orig/bot{token}/{method}"
+setattr(api, 'API_URL', PATCHED_URL)
+
+dp = Dispatcher(bot=Bot(token=TOKEN_API,))
 
 keyboard = ListOfButtons(text=["день", "месяц", "год"],
                          callback=["1", '2', '3'],
