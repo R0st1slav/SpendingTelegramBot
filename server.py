@@ -62,7 +62,12 @@ async def send_revenues(message: Message):
 @dp.callback_query_handler(Button("1"))
 async def filter_period(call: CallbackQuery):
     await call.message.edit_reply_markup()
-    await call.message.answer("test")
+    await call.message.answer("lol")
+
+
+@dp.message_handler()
+async def get_expense(message:  Message):
+    pass
 
 
 if __name__ == '__main__':

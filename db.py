@@ -7,10 +7,6 @@ conn = sqlite3.connect(os.path.join("db", "finance.db"))
 cursor = conn.cursor()
 
 
-# java style prog
-# проверка наличия в бд
-
-
 def check_chat_id(chatId):
     cursor.execute("SELECT count(*) FROM users WHERE chatid = ?", (chatId))
     data = cursor.fetchone()[0]
@@ -20,10 +16,6 @@ def check_chat_id(chatId):
         conn.commit()
     else:
         print('found one chatId! ')
-
-
-# какаято сложнота залупская
-# надо легче
 
 
 def insert(table: str, column_values: Dict):
