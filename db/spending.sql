@@ -26,3 +26,6 @@ create table categoryInc(
     idCatInc integer primary key autoincrement,
     nameCategory text
 );
+
+
+insert into User values ()
